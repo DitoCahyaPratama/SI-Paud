@@ -308,7 +308,7 @@
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $query = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.id AS id_subTema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = tema.id");
+                                        $query = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = tema.id");
                                         while ($data = _get($query)) {
                                             ?>
                                             <tr>

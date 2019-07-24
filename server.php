@@ -125,6 +125,22 @@
 		header("location: index.php?p=Di3TVMsRLmhpE");
 	}
 
+	//AnakDidik
+	else if($page == 'addAnakDidik'){
+		$query = _run("INSERT INTO student (name,place_born,date_born,kelas,date_in,date_out) VALUES ('".$_POST['name']."','".$_POST['tempat']."','".$_POST['tgl']."','".$_POST['kelas']."','".$_POST['tglmasuk']."','".$_POST['tglkeluar']."')") or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=DiqINcDCKLIwU");
+	}
+	else if($page == 'addAnakDidik'){
+		$query = _run("INSERT INTO sub_tema (name, tema_id) VALUES ('".$_POST['name']."', '".$_POST['tema_id']."')") or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=DiqINcDCKLIwU");
+	}
+	else if($page == 'updateAnakDidik'){
+		$query = _run("UPDATE student SET name='".$_POST['name']."', place_born='".$_POST['tempat']."',date_born='".$_POST['tgl']."',kelas='".$_POST['kelas']."',date_in='".$_POST['tglmasuk']."',date_out='".$_POST['tglkeluar']."' WHERE id='".$_POST['id']."'") or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=DiqINcDCKLIwU");
+	}else if($page == 'deleteAnakDidik'){
+		$query = _run("DELETE FROM student WHERE id = '".$_GET['id']."'");
+		header("location: index.php?p=DiqINcDCKLIwU");
+	}
 
 	else{
 

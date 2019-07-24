@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2019 at 10:21 AM
+-- Generation Time: Jul 24, 2019 at 05:04 PM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- PHP Version: 7.2.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `kurtilas`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aspek`
+--
+
+CREATE TABLE `aspek` (
+  `id` int(3) NOT NULL,
+  `description` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aspek`
+--
+
+INSERT INTO `aspek` (`id`, `description`) VALUES
+(1, 'Contoh deskripsi 1');
 
 -- --------------------------------------------------------
 
@@ -7299,29 +7317,44 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kompentensi_dasar`
+-- Table structure for table `kompetensi_dasar`
 --
 
-CREATE TABLE `kompentensi_dasar` (
+CREATE TABLE `kompetensi_dasar` (
   `id` int(11) NOT NULL,
   `description` text NOT NULL,
   `kompetensi_inti_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `aspek_id` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kompetensi_dasar`
+--
+
+INSERT INTO `kompetensi_dasar` (`id`, `description`, `kompetensi_inti_id`, `created_at`, `updated_at`, `aspek_id`) VALUES
+(1, 'bbbjb', 1, '2019-07-24 15:58:44', '2019-07-24 15:58:44', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kompentensi_inti`
+-- Table structure for table `kompetensi_inti`
 --
 
-CREATE TABLE `kompentensi_inti` (
+CREATE TABLE `kompetensi_inti` (
   `id` int(11) NOT NULL,
   `description` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kompetensi_inti`
+--
+
+INSERT INTO `kompetensi_inti` (`id`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Coktoh dekripsi kompetensi inti', '2019-07-24 15:54:04', '2019-07-24 15:54:04');
 
 -- --------------------------------------------------------
 
@@ -7336,6 +7369,13 @@ CREATE TABLE `muatan` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `muatan`
+--
+
+INSERT INTO `muatan` (`id`, `description`, `kompetensi_dasar_id`, `created_at`, `updated_at`) VALUES
+(1, 'muatan', 1, '2019-07-24 15:59:01', '2019-07-24 15:59:01');
 
 -- --------------------------------------------------------
 
@@ -8050,6 +8090,47 @@ CREATE TABLE `setting_schools` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `student`
+--
+
+CREATE TABLE `student` (
+  `id` int(4) NOT NULL,
+  `name` varchar(225) NOT NULL,
+  `place_born` varchar(155) NOT NULL,
+  `date_born` date NOT NULL,
+  `kelas` varchar(5) NOT NULL,
+  `date_in` date NOT NULL,
+  `date_out` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`id`, `name`, `place_born`, `date_born`, `kelas`, `date_in`, `date_out`) VALUES
+(1, 'Sd', 'Malang', '2019-07-22', 'B3', '2019-07-03', '2019-07-16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_tema`
+--
+
+CREATE TABLE `sub_tema` (
+  `id_subTema` int(5) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sub_tema`
+--
+
+INSERT INTO `sub_tema` (`id_subTema`, `name`) VALUES
+(1, 'sub tema percobaan');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teachers`
 --
 
@@ -8080,6 +8161,13 @@ CREATE TABLE `tema` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tema`
+--
+
+INSERT INTO `tema` (`id`, `name`, `semester`, `minggu_ke`, `created_at`, `updated_at`) VALUES
+(1, '', 0, 0, '2019-07-24 14:18:42', '0000-00-00 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -8101,7 +8189,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role_id`, `created_at`, `updated_at`) VALUES
-(1, 'khayal', 'ditogaming717@gmail.com', '109de86be8ccb00e1e850dc969c5bc70', 1, '2019-06-01 00:13:16', '2019-06-01 00:59:35');
+(1, 'khayal', 'ditogaming717@gmail.com', '109de86be8ccb00e1e850dc969c5bc70', 1, '2019-06-01 00:13:16', '2019-06-01 00:59:35'),
+(2, 'giri', 'giri@giri.com', 'a95bc72cf82d4eaa0874de0175dc2091', 1, '2019-07-24 14:32:14', '2019-07-24 14:32:14');
 
 -- --------------------------------------------------------
 
@@ -83184,6 +83273,12 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 --
 
 --
+-- Indexes for table `aspek`
+--
+ALTER TABLE `aspek`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ceklis`
 --
 ALTER TABLE `ceklis`
@@ -83203,16 +83298,17 @@ ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kompentensi_dasar`
+-- Indexes for table `kompetensi_dasar`
 --
-ALTER TABLE `kompentensi_dasar`
+ALTER TABLE `kompetensi_dasar`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `kompetensi_inti_id` (`kompetensi_inti_id`);
+  ADD KEY `kompetensi_inti_id` (`kompetensi_inti_id`),
+  ADD KEY `aspek_id` (`aspek_id`);
 
 --
--- Indexes for table `kompentensi_inti`
+-- Indexes for table `kompetensi_inti`
 --
-ALTER TABLE `kompentensi_inti`
+ALTER TABLE `kompetensi_inti`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -83262,6 +83358,18 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sub_tema`
+--
+ALTER TABLE `sub_tema`
+  ADD PRIMARY KEY (`id_subTema`);
+
+--
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -83293,6 +83401,12 @@ ALTER TABLE `villages`
 --
 
 --
+-- AUTO_INCREMENT for table `aspek`
+--
+ALTER TABLE `aspek`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `ceklis`
 --
 ALTER TABLE `ceklis`
@@ -83305,22 +83419,22 @@ ALTER TABLE `groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kompentensi_dasar`
+-- AUTO_INCREMENT for table `kompetensi_dasar`
 --
-ALTER TABLE `kompentensi_dasar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `kompetensi_dasar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `kompentensi_inti`
+-- AUTO_INCREMENT for table `kompetensi_inti`
 --
-ALTER TABLE `kompentensi_inti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `kompetensi_inti`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `muatan`
 --
 ALTER TABLE `muatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `promes`
@@ -83347,6 +83461,18 @@ ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sub_tema`
+--
+ALTER TABLE `sub_tema`
+  MODIFY `id_subTema` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
@@ -83356,13 +83482,13 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `tema`
 --
 ALTER TABLE `tema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -83375,16 +83501,17 @@ ALTER TABLE `districts`
   ADD CONSTRAINT `districts_regency_id_foreign` FOREIGN KEY (`regency_id`) REFERENCES `regencies` (`id`);
 
 --
--- Constraints for table `kompentensi_dasar`
+-- Constraints for table `kompetensi_dasar`
 --
-ALTER TABLE `kompentensi_dasar`
-  ADD CONSTRAINT `kompentensi_dasar_ibfk_1` FOREIGN KEY (`kompetensi_inti_id`) REFERENCES `kompentensi_inti` (`id`);
+ALTER TABLE `kompetensi_dasar`
+  ADD CONSTRAINT `kompetensi_dasar_ibfk_1` FOREIGN KEY (`kompetensi_inti_id`) REFERENCES `kompetensi_inti` (`id`),
+  ADD CONSTRAINT `kompetensi_dasar_ibfk_2` FOREIGN KEY (`aspek_id`) REFERENCES `aspek` (`id`);
 
 --
 -- Constraints for table `muatan`
 --
 ALTER TABLE `muatan`
-  ADD CONSTRAINT `muatan_ibfk_1` FOREIGN KEY (`kompetensi_dasar_id`) REFERENCES `kompentensi_dasar` (`id`);
+  ADD CONSTRAINT `muatan_ibfk_1` FOREIGN KEY (`kompetensi_dasar_id`) REFERENCES `kompetensi_dasar` (`id`);
 
 --
 -- Constraints for table `proteges`
