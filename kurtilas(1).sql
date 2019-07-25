@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2019 at 05:04 PM
+-- Generation Time: Jul 25, 2019 at 01:31 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -8117,16 +8117,17 @@ INSERT INTO `student` (`id`, `name`, `place_born`, `date_born`, `kelas`, `date_i
 --
 
 CREATE TABLE `sub_tema` (
-  `id_subTema` int(5) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `id` int(5) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `tema_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sub_tema`
 --
 
-INSERT INTO `sub_tema` (`id_subTema`, `name`) VALUES
-(1, 'sub tema percobaan');
+INSERT INTO `sub_tema` (`id`, `name`, `tema_id`) VALUES
+(1, 'Sub tema 1.1', 3);
 
 -- --------------------------------------------------------
 
@@ -8166,7 +8167,7 @@ CREATE TABLE `tema` (
 --
 
 INSERT INTO `tema` (`id`, `name`, `semester`, `minggu_ke`, `created_at`, `updated_at`) VALUES
-(1, '', 0, 0, '2019-07-24 14:18:42', '0000-00-00 00:00:00');
+(3, 'Tema1', 0, 0, '2019-07-25 10:00:36', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83367,7 +83368,8 @@ ALTER TABLE `student`
 -- Indexes for table `sub_tema`
 --
 ALTER TABLE `sub_tema`
-  ADD PRIMARY KEY (`id_subTema`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tema` (`tema_id`);
 
 --
 -- Indexes for table `teachers`
@@ -83470,7 +83472,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `sub_tema`
 --
 ALTER TABLE `sub_tema`
-  MODIFY `id_subTema` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `teachers`
@@ -83482,7 +83484,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `tema`
 --
 ALTER TABLE `tema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -83525,6 +83527,12 @@ ALTER TABLE `proteges`
 --
 ALTER TABLE `regencies`
   ADD CONSTRAINT `regencies_province_id_foreign` FOREIGN KEY (`province_id`) REFERENCES `provinces` (`id`);
+
+--
+-- Constraints for table `sub_tema`
+--
+ALTER TABLE `sub_tema`
+  ADD CONSTRAINT `sub_tema_ibfk_1` FOREIGN KEY (`tema_id`) REFERENCES `tema` (`id`);
 
 --
 -- Constraints for table `teachers`
