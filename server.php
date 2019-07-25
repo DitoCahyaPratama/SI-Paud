@@ -119,9 +119,18 @@
 		$query = _run("INSERT INTO sub_tema (name, tema_id) VALUES ('".$_POST['name']."', '".$_POST['tema_id']."')") or die("Error :".mysqli_error($conn));
 		header("location: index.php?p=Di3TVMsRLmhpE");
 	}
-	else if($page == 'updateTemaSub'){
+	else if($page == 'updateSubTema'){
+		$query2 = _run("UPDATE sub_tema SET name='".$_POST['name_subTema']."' WHERE id='".$_POST['id_subTema']."'") or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=Di3TVMsRLmhpE");
+	}else if ($page == 'updateTema') {
 		$query = _run("UPDATE tema SET name='".$_POST['name_tema']."' WHERE id='".$_POST['id']."'") or die("Error :".mysqli_error($conn));
-		$query2 = _run("UPDATE sub_tema SET name='".$_POST['name_subTema']."', tema_id='".$_POST['tema_id']."' WHERE id='".$_POST['id_subTema']."'") or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=Di3TVMsRLmhpE");
+	}else if($page == 'deleteTema'){
+		$query = _run("DELETE FROM sub_tema WHERE tema_id = '".$_GET['id']."'");
+		$query2 = _run("DELETE FROM tema WHERE id = '".$_GET['id']."'");
+		header("location: index.php?p=Di3TVMsRLmhpE");
+	}else if($page == 'deleteSubTema'){
+		$query = _run("DELETE FROM sub_tema WHERE id = '".$_GET['id']."'");
 		header("location: index.php?p=Di3TVMsRLmhpE");
 	}
 

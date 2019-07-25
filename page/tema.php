@@ -58,11 +58,11 @@
                     }
                 }
                 if(isset($_GET['det']) && $_GET['det'] == crypt($id, 'DitoCahyaPratama')){
-                    $queryambil = _run("SELECT tema.id AS temaid, tema.name AS name_tema, sub_tema.id AS id_subTema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = temaid WHERE sub_tema.id = '".$id."'");
+                    $queryambil = _run("SELECT tema.id AS temaid, tema.name AS name_tema FROM tema WHERE id = '".$id."'");
                     $dataambil = _get($queryambil);
                     ?>
                     <div class="row clearfix">
-                        <form action="server.php?p=updateTemaSub" method="POST">
+                        <form action="server.php?p=updateTema" method="POST">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-blue">
@@ -71,7 +71,7 @@
                                     </h2>
                                 </div>
                                 <div class="body">
-                                        <input type="hidden" name="id" value="<?php echo $dataambil['id']; ?>" >
+                                        <input type="hidden" name="id" value="<?php echo $dataambil['temaid']; ?>" >
                                         <label for="name_tema">Nama Tema</label>
                                         <div class="form-group">
                                             <div class="form-line">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
+                        <!-- <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
                             <div class="card">
                                 <div class="header bg-light-blue">
                                     <h2>
@@ -112,7 +112,7 @@
                                         </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         </form>
                     </div>    
                     <?php               
@@ -174,6 +174,56 @@
                         </div>
                     </div>         
                     <?php
+                }
+            }else if(isset($_GET['de'])){
+                $query_tema = _run("SELECT * FROM sub_tema");
+                while($data_tema = _get($query_tema)){
+                    if (crypt($data_tema['id'],'DitoCahyaPratama') == $_GET['de']) {
+                        $id = $data_tema['id'];
+                    }
+                }
+                if(isset($_GET['de']) && $_GET['de'] == crypt($id, 'DitoCahyaPratama')){
+                    $queryambil = _run("SELECT *  FROM sub_tema WHERE id = '".$id."'");
+                    $dataambil = _get($queryambil);
+                    ?>
+                    <div class="row clearfix">
+                        <form action="server.php?p=updateSubTema" method="POST">
+                        
+                        <div class="col-lg-6 col-md-4 col-sm-12 col-xs-12">
+                            <div class="card">
+                                <div class="header bg-light-blue">
+                                    <h2>
+                                        Sub Tema
+                                    </h2>
+                                </div>
+                                <div class="body">
+                                        <input type="hidden" name="id_subTema" value="<?php echo $dataambil['id']; ?>">
+                                        <!-- <label for="tema_id">id Tema</label>
+                                        <select class="form-control show-tick" name="tema_id">
+                                            <option value="">-- Pilih Tema --</option>
+                                            <?php
+                                                $query_tema = _run("SELECT * FROM tema");
+                                                while ($data_tema = _get($query_tema)) {
+                                                    ?>
+                                                    <option value="<?php echo $data_tema['id'] ?>" <?php if($dataambil['id'] == $data_tema['id']){?> selected <?php } ?>><?php echo $data_tema['id'].".".$data_tema['name'] ?></option>
+                                                    <?php
+                                                }
+                                            ?>
+                                        </select>
+                                        <br><br> -->
+                                        <label for="name_subTema">Nama Sub Tema</label>
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="name" name="name_subTema" class="form-control" placeholder="Ketikkan Sub Tema di sini ... " value="<?php echo $dataambil['name'] ?>">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Perbarui</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>    
+                    <?php               
                 }
             }else{
                 ?>
@@ -241,7 +291,7 @@
                     <div class="card">
                         <div class="header">
                             <button class="btn btn-primary waves-effect" onclick="show()">Edit Data Tema</button>
-                            <button class="btn btn-primary waves-effect" onclick="show()">Edit Data Sub Tema</button>
+                            <button class="btn btn-primary waves-effect" onclick="showEditSub()">Edit Data Sub Tema</button>
                         </div>
                         <div class="body">
                             <div class="table-responsive">
@@ -294,16 +344,14 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Tema</th>
-                                            <th>Sub Tema</th>
+                                            <th>Tema</th>                                    
                                             <th>Opsi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Tema</th>
-                                            <th>Sub Tema</th>
+                                            <th>Tema</th>                                           
                                             <th>Opsi</th>
                                         </tr>
                                     </tfoot>
@@ -316,7 +364,7 @@
                                             <tr>
                                                 <td><?php echo $no ?></td>
                                                 <td><?php echo $data['name_tema'] ?></td>
-                                                <td><?php echo $data['name_subTema'] ?></td>
+                                                
                                                 <td>
                                                     <a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&det=<?php echo crypt($data['temaid'],'DitoCahyaPratama') ?>">
                                                             <button type="button" class="btn btn-warning waves-effect">
@@ -324,7 +372,69 @@
                                                                 <span>Edit</span>
                                                             </button>
                                                         </a>
-                                                        <a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&det=<?php echo crypt($data['temaid'],'DitoCahyaPratama') ?>">
+                                                        <a href="server.php?p=deleteTema&id=<?php echo $data['temaid']?>">
+                                                            <button type="button" class="btn btn-danger waves-effect">
+                                                                <i class="material-icons">delete</i>
+                                                                <span>Delete</span>
+                                                            </button>
+                                                        </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $no++;
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix" id="editSubTema">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <button class="btn btn-primary waves-effect" onclick="show()">Kembali</button>
+                        </div>
+                        <div class="body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover dataTable js-basic-example">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>SubTema</th>                                    
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Tema</th>
+                                            <th>SubTema</th>                                           
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php
+                                        $no = 1;
+                                        $query = _run("SELECT tema.id AS temaid, tema.name AS name_tema, sub_tema.name AS name_subTema, sub_tema.id AS subid FROM tema INNER JOIN sub_tema ON sub_tema.tema_id = tema.id");
+                                        while ($data = _get($query)) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $no ?></td>
+                                                <td><?php echo $data['name_tema'] ?></td>
+                                                <td><?php echo $data['name_subTema'] ?></td>
+                                                
+                                                <td>
+                                                    <a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&de=<?php echo crypt($data['subid'],'DitoCahyaPratama') ?>">
+                                                            <button type="button" class="btn btn-warning waves-effect">
+                                                                <i class="material-icons">edit</i>
+                                                                <span>Edit</span>
+                                                            </button>
+                                                        </a>
+                                                        <a href="server.php?p=deleteSubTema&id=<?php echo $data['subid']?>">
                                                             <button type="button" class="btn btn-danger waves-effect">
                                                                 <i class="material-icons">delete</i>
                                                                 <span>Delete</span>
@@ -367,15 +477,23 @@
     <script type="text/javascript">
         var tampil_tema = document.getElementById('tema');
         var edit_tema = document.getElementById('editTema');
+        var edit_sub_tema = document.getElementById('editSubTema');
         show();
         function show(){
           if(tampil_tema.style.display == 'block'){
             tampil_tema.style.display = 'none';
             edit_tema.style.display = 'block';
+            edit_sub_tema.style.display = 'none';
           }else{
             tampil_tema.style.display = 'block';
             edit_tema.style.display = 'none';
+            edit_sub_tema.style.display = 'none';
           }
+        }
+        function showEditSub(){
+            tampil_tema.style.display = 'none';
+            edit_tema.style.display = 'none';
+            edit_sub_tema.style.display = 'block';
         }
     </script>
 </body>
