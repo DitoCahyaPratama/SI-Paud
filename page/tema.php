@@ -58,7 +58,7 @@
                     }
                 }
                 if(isset($_GET['det']) && $_GET['det'] == crypt($id, 'DitoCahyaPratama')){
-                    $queryambil = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.id AS id_subTema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = tema.id WHERE sub_tema.id = '".$id."'");
+                    $queryambil = _run("SELECT tema.id AS temaid, tema.name AS name_tema, sub_tema.id AS id_subTema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = temaid WHERE sub_tema.id = '".$id."'");
                     $dataambil = _get($queryambil);
                     ?>
                     <div class="row clearfix">
@@ -231,6 +231,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <?php
             }
@@ -240,6 +241,7 @@
                     <div class="card">
                         <div class="header">
                             <button class="btn btn-primary waves-effect" onclick="show()">Edit Data Tema</button>
+                            <button class="btn btn-primary waves-effect" onclick="show()">Edit Data Sub Tema</button>
                         </div>
                         <div class="body">
                             <div class="table-responsive">
@@ -261,7 +263,7 @@
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $query = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = tema.id");
+                                        $query = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.name AS name_subTema FROM tema INNER JOIN sub_tema ON sub_tema.tema_id = tema.id");
                                         while ($data = _get($query)) {
                                             ?>
                                             <tr>
@@ -308,17 +310,24 @@
                                     <tbody>
                                         <?php
                                         $no = 1;
-                                        $query = _run("SELECT tema.id, tema.name AS name_tema, sub_tema.name AS name_subTema FROM tema LEFT JOIN sub_tema ON sub_tema.tema_id = tema.id");
+                                        $query = _run("SELECT tema.id AS temaid, tema.name AS name_tema, sub_tema.name AS name_subTema FROM tema INNER JOIN sub_tema ON sub_tema.tema_id = tema.id");
                                         while ($data = _get($query)) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $no ?></td>
                                                 <td><?php echo $data['name_tema'] ?></td>
                                                 <td><?php echo $data['name_subTema'] ?></td>
-                                                <td><a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&det=<?php echo crypt($data['id_subTema'],'DitoCahyaPratama') ?>">
-                                                            <button type="button" class="btn btn-primary waves-effect">
+                                                <td>
+                                                    <a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&det=<?php echo crypt($data['temaid'],'DitoCahyaPratama') ?>">
+                                                            <button type="button" class="btn btn-warning waves-effect">
                                                                 <i class="material-icons">edit</i>
                                                                 <span>Edit</span>
+                                                            </button>
+                                                        </a>
+                                                        <a href="?p=<?php echo crypt('tema','DitoCahyaPratama') ?>&det=<?php echo crypt($data['temaid'],'DitoCahyaPratama') ?>">
+                                                            <button type="button" class="btn btn-danger waves-effect">
+                                                                <i class="material-icons">delete</i>
+                                                                <span>Delete</span>
                                                             </button>
                                                         </a>
                                                 </td>
