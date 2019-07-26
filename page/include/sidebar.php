@@ -69,7 +69,7 @@
                                 <a href="?p=<?php echo crypt('dataCeklisKelas','DitoCahyaPratama') ?>">Data Ceklis Per Kelas</a>
                             </li>
                             <li>
-                                <a href="?p=<?php echo crypt('dataCeklisAnak','DitoCahyaPratama') ?>">Data Ceklis Per Anak</a>
+                                <a href="?p=<?php echo crypt('dataCekAnak','DitoCahyaPratama') ?>">Data Ceklis Per Anak</a>
                             </li>
                             <li>
                                 <a href="?p=<?php echo crypt('dataCatatanAnekdot','DitoCahyaPratama') ?>">Data Catatan Anekdot</a>
@@ -124,7 +124,7 @@
                             <i class="material-icons">insert_chart_outlined</i>
                             <span>Data Program</span>
                         </a>
-                        <ul class="ml-menu">
+                        <ul class="ml-menu">                        
                             <li>
                                 <a href="?p=<?php echo crypt('prota','DitoCahyaPratama') ?>">Program Tahunan</a>
                             </li>

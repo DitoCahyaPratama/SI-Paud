@@ -10,7 +10,7 @@
 		include_once('page/data_anak_didik.php');
 	}else if($page == crypt('dataCeklisKelas','DitoCahyaPratama')){
 		include_once('page/data_ceklis_per_kelas.php');
-	}else if($page == crypt('dataCeklisAnak','DitoCahyaPratama')){
+	}else if($page == crypt('dataCekAnak','DitoCahyaPratama')){
 		include_once('page/data_ceklis_per_anak.php');
 	}else if($page == crypt('dataCatatanAnekdot','DitoCahyaPratama')){
 		include_once('page/data_catatan_anekdot.php');
