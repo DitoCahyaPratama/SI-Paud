@@ -38,7 +38,11 @@
 		include_once('page/tema.php');
 	}else if($page == crypt('404','DitoCahyaPratama')){
 		include_once('page/404.php');
+	}else if($page == crypt('result', 'DitoCahyaPratama')){
+		include_once('page/result.php');
 	}else{
 		include_once('page/index.php');
 	}
+	$search = isset($_GET['search_query'])?$_GET['search_query'] : '';
+	
 ?>
