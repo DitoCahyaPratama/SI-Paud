@@ -151,6 +151,12 @@
 		header("location: index.php?p=DiqINcDCKLIwU");
 	}
 
+	//ProgramTahunan
+	else if ($page == 'generatePromes'){
+		$query = _run("INSERT INTO prota (kompetensi_dasar_id,tema_id,sub_tema_id,alokasi_waktu) VALUES ('".$_POST['kompetensi_dasar_id']."', '".$_POST['tema_id']."', '".$_POST['sub_tema_id']."', '".$_POST['alokasi_waktu']."')")or die("Error :".mysqli_error($conn));;
+		header("location: index.php?p=DiQIhx0XCMy4g");
+	}
+
 	else{
 
 	}

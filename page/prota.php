@@ -157,10 +157,44 @@
                                                     </tr>
                                                 </tfoot>
                                                 <tbody>
-                                                    <?php
-
-                                                    ?>
-                                                </tbody>
+                                        <?php
+                                        $no = 1;
+                                        $query = _run("SELECT * FROM prota");
+                                        while ($data = _get($query)) {
+                                            $queri = _run("SELECT description FROM kompetensi_dasar WHERE id='".$data['kompetensi_dasar_id']."'");
+                                            $id_dasar = _get($queri);
+                                            $queri2 = _run("SELECT name FROM tema WHERE id='".$data['tema_id']."'");
+                                            $id_tema = _get($queri2);
+                                            $queri3 = _run("SELECT name FROM sub_tema WHERE id='".$data['sub_tema_id']."'");
+                                            $id_sub_tema = _get($queri3);
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $no; ?></td>
+                                                <td><?php echo $id_dasar['description'] ?></td>
+                                                <td><?php echo $id_tema['name']?></td>
+                                                <td><?php echo $id_sub_tema['name'] ?></td>
+                                                <td><?php echo $data['alokasi_waktu'] ?></td>
+                                                
+                                                <td>
+                                                    <a href="?p=<?php echo crypt('dataAnakDidik', 'DitoCahyaPratama') ?>&det=<?php echo crypt($data['id'], 'DitoCahyaPratama') ?>">
+                                                        <button type="button" class="btn btn-warning waves-effect">
+                                                            <i class="material-icons">edit</i>
+                                                            <span>Edit</span>
+                                                        </button>
+                                                    </a>
+                                                    <a href="server.php?p=deleteAnakDidik&id=<?php echo $data['id']?>">
+                                                        <button type="button" class="btn btn-danger waves-effect">
+                                                            <i class="material-icons">delete</i>
+                                                            <span>Delete</span>
+                                                        </button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $no++;
+                                        }
+                                        ?>
+                                    </tbody>
                                             </table>
                                         </div>
                                     </div>

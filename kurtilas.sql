@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2019 at 01:31 PM
+-- Generation Time: Jul 26, 2019 at 03:24 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -7354,7 +7354,8 @@ CREATE TABLE `kompetensi_inti` (
 --
 
 INSERT INTO `kompetensi_inti` (`id`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Coktoh dekripsi kompetensi inti', '2019-07-24 15:54:04', '2019-07-24 15:54:04');
+(1, 'Coktoh dekripsi kompetensi inti', '2019-07-24 15:54:04', '2019-07-24 15:54:04'),
+(2, '', '2019-07-26 04:19:37', '2019-07-26 04:19:37');
 
 -- --------------------------------------------------------
 
@@ -7393,6 +7394,27 @@ CREATE TABLE `promes` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prota`
+--
+
+CREATE TABLE `prota` (
+  `id` int(4) NOT NULL,
+  `kompetensi_dasar_id` int(4) NOT NULL,
+  `tema_id` int(4) NOT NULL,
+  `sub_tema_id` int(4) NOT NULL,
+  `alokasi_waktu` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `prota`
+--
+
+INSERT INTO `prota` (`id`, `kompetensi_dasar_id`, `tema_id`, `sub_tema_id`, `alokasi_waktu`) VALUES
+(5, 1, 4, 1, '2');
 
 -- --------------------------------------------------------
 
@@ -8127,7 +8149,7 @@ CREATE TABLE `sub_tema` (
 --
 
 INSERT INTO `sub_tema` (`id`, `name`, `tema_id`) VALUES
-(1, 'Sub tema 1.1', 3);
+(1, 'Sub temsa', 4);
 
 -- --------------------------------------------------------
 
@@ -8167,7 +8189,7 @@ CREATE TABLE `tema` (
 --
 
 INSERT INTO `tema` (`id`, `name`, `semester`, `minggu_ke`, `created_at`, `updated_at`) VALUES
-(3, 'Tema1', 0, 0, '2019-07-25 10:00:36', '0000-00-00 00:00:00');
+(4, 'Tema Sia', 0, 0, '2019-07-25 13:40:53', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83326,6 +83348,15 @@ ALTER TABLE `promes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `prota`
+--
+ALTER TABLE `prota`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kompetensi_dasar_id` (`kompetensi_dasar_id`),
+  ADD KEY `tema_id` (`tema_id`,`sub_tema_id`),
+  ADD KEY `sub_tema_id` (`sub_tema_id`);
+
+--
 -- Indexes for table `proteges`
 --
 ALTER TABLE `proteges`
@@ -83430,7 +83461,7 @@ ALTER TABLE `kompetensi_dasar`
 -- AUTO_INCREMENT for table `kompetensi_inti`
 --
 ALTER TABLE `kompetensi_inti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `muatan`
@@ -83443,6 +83474,12 @@ ALTER TABLE `muatan`
 --
 ALTER TABLE `promes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `prota`
+--
+ALTER TABLE `prota`
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `proteges`
@@ -83484,7 +83521,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `tema`
 --
 ALTER TABLE `tema`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -83514,6 +83551,14 @@ ALTER TABLE `kompetensi_dasar`
 --
 ALTER TABLE `muatan`
   ADD CONSTRAINT `muatan_ibfk_1` FOREIGN KEY (`kompetensi_dasar_id`) REFERENCES `kompetensi_dasar` (`id`);
+
+--
+-- Constraints for table `prota`
+--
+ALTER TABLE `prota`
+  ADD CONSTRAINT `prota_ibfk_1` FOREIGN KEY (`kompetensi_dasar_id`) REFERENCES `kompetensi_dasar` (`id`),
+  ADD CONSTRAINT `prota_ibfk_2` FOREIGN KEY (`tema_id`) REFERENCES `tema` (`id`),
+  ADD CONSTRAINT `prota_ibfk_3` FOREIGN KEY (`sub_tema_id`) REFERENCES `sub_tema` (`id`);
 
 --
 -- Constraints for table `proteges`
