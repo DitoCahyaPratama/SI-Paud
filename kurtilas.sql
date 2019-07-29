@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2019 at 03:11 PM
+-- Generation Time: Jul 29, 2019 at 11:32 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -7314,6 +7314,13 @@ CREATE TABLE `groups` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(6, 'Kelompok belajar 1-2 Tahun', '2019-07-29 04:07:45', '2019-07-29 04:16:05');
+
 -- --------------------------------------------------------
 
 --
@@ -8169,6 +8176,14 @@ CREATE TABLE `teachers` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`id`, `nip`, `nama_lengkap`, `position_id`, `group_id`, `jumlah_anak_didik`, `user_id`, `created_at`, `updated_at`) VALUES
+(3, 2147483647, 'Guru 1', 2, 6, 11, 2, '2019-07-29 08:48:28', '2019-07-29 08:48:28'),
+(5, 2147483647, 'Guru 2', 3, 6, 20, 2, '2019-07-29 08:50:04', '2019-07-29 08:50:04');
 
 -- --------------------------------------------------------
 
@@ -83408,7 +83423,8 @@ ALTER TABLE `sub_tema`
 --
 ALTER TABLE `teachers`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `group_id` (`group_id`);
 
 --
 -- Indexes for table `tema`
@@ -83450,7 +83466,7 @@ ALTER TABLE `ceklis`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `kompetensi_dasar`
@@ -83516,7 +83532,7 @@ ALTER TABLE `sub_tema`
 -- AUTO_INCREMENT for table `teachers`
 --
 ALTER TABLE `teachers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tema`
@@ -83584,7 +83600,8 @@ ALTER TABLE `sub_tema`
 -- Constraints for table `teachers`
 --
 ALTER TABLE `teachers`
-  ADD CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `teachers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `teachers_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
 
 --
 -- Constraints for table `users`

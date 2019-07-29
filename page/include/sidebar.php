@@ -125,6 +125,9 @@
                         <li>
                             <a href="?p=<?php echo crypt('tema', 'DitoCahyaPratama') ?>">Data Inti Tema</a>
                         </li>
+                        <li>
+                            <a href="?p=<?php echo crypt('kelompok_belajar', 'DitoCahyaPratama') ?>">Data Kelompok Belajar</a>
+                        </li>
                     </ul>
                 </li>
                 <li>

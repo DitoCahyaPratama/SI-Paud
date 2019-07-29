@@ -162,8 +162,27 @@
 
 	//ProgramTahunan
 	else if ($page == 'generatePromes'){
-		$query = _run("INSERT INTO prota (kompetensi_dasar_id,tema_id,sub_tema_id,alokasi_waktu) VALUES ('".$_POST['kompetensi_dasar_id']."', '".$_POST['tema_id']."', '".$_POST['sub_tema_id']."', '".$_POST['alokasi_waktu']."')")or die("Error :".mysqli_error($conn));;
+		$query = _run("INSERT INTO prota (kompetensi_dasar_id,tema_id,sub_tema_id,alokasi_waktu) VALUES ('".$_POST['kompetensi_dasar_id']."', '".$_POST['tema_id']."', '".$_POST['sub_tema_id']."', '".$_POST['alokasi_waktu']."')")or die("Error :".mysqli_error($conn));
 		header("location: index.php?p=DiQIhx0XCMy4g");
+	}
+
+	//Kelompok Belajar
+	else if ($page == 'addKb'){
+		$query = _run("INSERT INTO groups (name) VALUES ('".$_POST['name']."')")or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=DiCq2qZSGc2cU");
+	}else if ($page == 'updateKb'){
+		$query = _run("UPDATE groups SET name='".$_POST['name']."' WHERE id='".$_POST['id']."'")or die("Error :".mysqli_error($conn));
+		header("location: index.php?p=DiCq2qZSGc2cU");
+	}else if ($page == 'deleteKb'){
+		$query = _run("DELETE FROM groups WHERE id = '".$_GET['id']."'");
+		header("location: index.php?p=DiCq2qZSGc2cU");
+	}
+
+	//Teacher
+	else if($page == 'addTeacher'){
+		session_start();
+		$query = _run("INSERT INTO teachers (nip,nama_lengkap,position_id,group_id,jumlah_anak_didik,user_id) VALUES ('".$_POST['nip']."','".$_POST['name']."','".$_POST['position']."','".$_POST['group']."','".$_POST['jumlahMurid']."','".$_SESSION['id']."')")or die("Error :".mysqli_error($conn));		
+		header("location: index.php?p=DiLjVqut9hSK6");
 	}
 
 	else{

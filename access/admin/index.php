@@ -38,6 +38,10 @@
 		include_once('page/tema.php');
 	}else if($page == crypt('404','DitoCahyaPratama')){
 		include_once('page/404.php');
+	}else if($page == crypt('dataGuru','DitoCahyaPratama')){
+		include_once('page/data_guru.php');
+	}else if($page == crypt('kelompok_belajar','DitoCahyaPratama')){
+		include_once('page/kelompok_belajar.php');
 	}else{
 		include_once('page/index.php');
 	}
