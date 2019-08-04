@@ -103,6 +103,17 @@
 		$query2 = _run("UPDATE kompetensi_dasar SET aspek_id='".$_POST['aspek_id']."', kompetensi_inti_id='".$_POST['kompetensi_inti_id']."', description='".$_POST['desc_kd']."' WHERE id='".$_POST['id_kd']."'");
 		$query3 = _run("UPDATE muatan SET kompetensi_dasar_id='".$_POST['kompetensi_dasar_id']."', description='".$_POST['desc_muatan']."' WHERE id='".$_POST['id_muatan']."'");
 		header("location: index.php?p=DihODUUCiTbFI");
+	}else if($page == 'updateKompetensiInti'){
+		$query = _run("UPDATE kompetensi_inti SET description='".$_POST['desc_ki']."' WHERE id='".$_POST['id_ki']."'")or die("Error : ".mysqli_error($conn));
+		header("location: index.php?p=DihODUUCiTbFI");
+	}else if($page == 'deleteKompetensi'){		
+		$query = _run("SELECT*FROM kompetensi_dasar WHERE kompetensi_inti_id='".$_GET['id']."'")or die("Error : ".mysqli_error($conn));
+		$data =  _get($query);
+		$query1 = _run("DELETE FROM muatan WHERE kompetensi_dasar_id='".$data['id']."'")or die("Error : ".mysqli_error($conn));
+		$query = _run("DELETE FROM prota WHERE kompetensi_dasar_id ='".$data['id']."'")or die("Error : ".mysqli_error($conn));
+		$query2 = _run("DELETE FROM kompetensi_dasar WHERE kompetensi_inti_id='".$_GET['id']."'")or die("Error : ".mysqli_error($conn));	
+		$query3 = _run("DELETE FROM kompetensi_inti WHERE id='".$_GET['id']."'")or die("Error : ".mysqli_error($conn));
+		header("location: index.php?p=DihODUUCiTbFI");
 	}
 
 

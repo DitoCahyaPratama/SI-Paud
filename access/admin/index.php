@@ -42,6 +42,10 @@
 		include_once('page/data_guru.php');
 	}else if($page == crypt('kelompok_belajar','DitoCahyaPratama')){
 		include_once('page/kelompok_belajar.php');
+	}else if($page == 'ceklis_per_kelas'){
+		include_once('page/ceklis_per_kelas.php');
+	}else if($page == 'ceklis_per_anak'){
+		include_once('page/ceklis_per_anak.php');
 	}else{
 		include_once('page/index.php');
 	}

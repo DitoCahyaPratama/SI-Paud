@@ -7,7 +7,7 @@
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-    <link href="assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/plugins/node-waves/waves.css" rel="stylesheet" />
     <link href="assets/plugins/animate-css/animate.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet">
@@ -44,6 +44,8 @@
     include_once('include/sidebar.php');
     $query =  _run("SELECT * FROM student");
     $students = _num($query);
+    $query1 = _run("SELECT*FROM teachers");
+    $teacher = _num($query1);
     ?> 
     <section class="content">
         <div class="container-fluid">
@@ -69,7 +71,7 @@
                         </div>
                         <div class="content">
                             <div class="text">Jumlah Guru</div>
-                            <div class="number count-to" data-from="0" data-to="0" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="number count-to" data-from="0" data-to="<?php echo $teacher; ?>" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>

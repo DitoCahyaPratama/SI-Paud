@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>SiPaud | Penilaian Ceklis</title>
+    <title>SiPaud | Penilaian Ceklis Per Anak</title>
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -51,12 +51,12 @@
     ?>
     <section class="content">
         <div class="container-fluid">
-            <div class="row clearfix">
+            <div class="row clearfix">                
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header bg-light-blue">
                             <h2>
-                                Guru
+                                Ceklis Per Anak
                             </h2>
                         </div>
                         <div class="body">
@@ -152,50 +152,28 @@
                         } else {
                             ?>
                             <form action="server.php?p=addTeacher" method="POST">
-                                <label for="nip">NIP</label>
+                                <label for="nip">Anak Didik</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="nip" name="nip" class="form-control" placeholder="Ketikkan NIP Guru di sini ... " />
-                                    </div>
-                                </div>
-                                <label for="name">Nama</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="name" name="name" class="form-control" placeholder="Ketikkan Nama Guru di sini ... " />
-                                    </div>
-                                </div>
-                                <label for="position">Posisi</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <select id="position" name="position" class="form-control">
-                                            <option selected disabled>Pilih Posisi Guru</option>
-                                            <option value="1">Kepala Sekolah</option>
-                                            <option value="2">Guru</option>
-                                            <option value="3">Operator</option>
+                                        <select type="text" id="nip" name="namaanak" class="form-control">
+                                            <option selected disabled>Pilih murid</option>
+                                            <?php
+                                                $query = _run("SELECT * FROM student LEFT JOIN ceklis_anak ON student.id = ceklis_anak.id_murid WHERE ceklis_anak.id_murid IS NULL ");
+                                                while($data = _get($query)){?>
+                                                    <option value="<?Php echo $data['name']; ?>"> <?Php echo $data['name']; ?> </option>
+                                                <?php
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <?php
-                                $query = _run("SELECT * FROM groups");
-
-                                ?>
-                                <label for="group">Kelas</label>
+                                <label for="name">Tanggal</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <select name="group" id="group" class="form-control">
-                                            <option selected disabled>Pilih Kelompok Belajar</option>
-                                            <?php while ($data = _get($query)) { ?>
-                                                <option value="<?php echo $data['id']; ?>"> <?php echo $data['name']; ?> </option>
-                                            <?php } ?>
-                                        </select>
+                                        <input type="date" id="name" name="tanggal" class="form-control" />
                                     </div>
                                 </div>
-                                <label for="jumlahMurid">Jumlah Anak Didik</label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" name="jumlahMurid" id="jumlahMurid" class="form-control">
-                                    </div>
-                                </div>
+                                
                                 <button type="submit" class="btn btn-primary m-t-15 waves-effect">Tambahkan</button>
                             </form>
                         <?php
@@ -210,7 +188,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>Data Guru</h2>
+                        <h2>Data Anak Yang Sudah Di Ceklis</h2>
                     </div>
                     <div class="body">
                         <div class="table-responsive">

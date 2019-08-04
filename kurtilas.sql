@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2019 at 11:32 AM
+-- Generation Time: Aug 04, 2019 at 04:37 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -63,6 +63,27 @@ INSERT INTO `ceklis` (`id`, `name`, `description`, `created_at`, `updated_at`) V
 (2, 'MB', 'Mulai Berkembang: bila anak melakukannya masih harus diingatkan atau dibantu oleh guru.', '2019-06-01 02:22:27', '2019-06-01 02:22:27'),
 (3, 'BSH', 'Berkembang Sesuai Harapan: bila anak sudah dapat melakukannya secara mandiri dan konsisten tanpa harus diingatkan atau dicontohkan oleh guru.', '2019-06-01 02:22:27', '2019-06-01 02:22:27'),
 (4, 'BSB', 'Berkembang Sangat Baik: bila anak sudah dapat melakukannya secara mandiri dan sudah dapat membantu temannya yang belum mencapai kemampuan sesuai dengan indikator yang diharapkan.', '2019-06-01 02:22:27', '2019-06-01 02:22:27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ceklis_anak`
+--
+
+CREATE TABLE `ceklis_anak` (
+  `id` int(3) NOT NULL,
+  `id_penilaian` int(3) NOT NULL,
+  `id_murid` int(3) NOT NULL,
+  `tanggal_penilaian` date NOT NULL,
+  `nilai` varchar(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ceklis_anak`
+--
+
+INSERT INTO `ceklis_anak` (`id`, `id_penilaian`, `id_murid`, `tanggal_penilaian`, `nilai`) VALUES
+(1, 2, 2, '2019-08-02', 'B');
 
 -- --------------------------------------------------------
 
@@ -7341,7 +7362,7 @@ CREATE TABLE `kompetensi_dasar` (
 --
 
 INSERT INTO `kompetensi_dasar` (`id`, `description`, `kompetensi_inti_id`, `created_at`, `updated_at`, `aspek_id`) VALUES
-(1, 'bbbjb', 1, '2019-07-24 15:58:44', '2019-07-24 15:58:44', 1);
+(2, 'Contoh Deskripsi Dasar', 4, '2019-07-31 22:02:42', '2019-07-31 22:02:42', 1);
 
 -- --------------------------------------------------------
 
@@ -7361,8 +7382,7 @@ CREATE TABLE `kompetensi_inti` (
 --
 
 INSERT INTO `kompetensi_inti` (`id`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Coktoh dekripsi kompetensi inti', '2019-07-24 15:54:04', '2019-07-24 15:54:04'),
-(2, '', '2019-07-26 04:19:37', '2019-07-26 04:19:37');
+(4, 'Kompetensi Inti\r\n', '2019-07-31 22:00:04', '2019-07-31 22:00:04');
 
 -- --------------------------------------------------------
 
@@ -7383,7 +7403,8 @@ CREATE TABLE `muatan` (
 --
 
 INSERT INTO `muatan` (`id`, `description`, `kompetensi_dasar_id`, `created_at`, `updated_at`) VALUES
-(1, 'muatan', 1, '2019-07-24 15:59:01', '2019-07-24 15:59:01');
+(2, 'Deskripsi Muatan 1\r\n', 2, '2019-07-31 22:03:23', '2019-07-31 22:03:23'),
+(3, 'Deskripsi Muatan 2', 2, '2019-07-31 22:03:32', '2019-07-31 22:03:32');
 
 -- --------------------------------------------------------
 
@@ -7415,13 +7436,6 @@ CREATE TABLE `prota` (
   `sub_tema_id` int(4) NOT NULL,
   `alokasi_waktu` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `prota`
---
-
-INSERT INTO `prota` (`id`, `kompetensi_dasar_id`, `tema_id`, `sub_tema_id`, `alokasi_waktu`) VALUES
-(5, 1, 4, 1, '2');
 
 -- --------------------------------------------------------
 
@@ -83324,6 +83338,14 @@ ALTER TABLE `ceklis`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ceklis_anak`
+--
+ALTER TABLE `ceklis_anak`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_penilaian` (`id_penilaian`),
+  ADD KEY `id_murid` (`id_murid`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -83463,28 +83485,34 @@ ALTER TABLE `ceklis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `ceklis_anak`
+--
+ALTER TABLE `ceklis_anak`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `kompetensi_dasar`
 --
 ALTER TABLE `kompetensi_dasar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kompetensi_inti`
 --
 ALTER TABLE `kompetensi_inti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `muatan`
 --
 ALTER TABLE `muatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `promes`
@@ -83496,7 +83524,7 @@ ALTER TABLE `promes`
 -- AUTO_INCREMENT for table `prota`
 --
 ALTER TABLE `prota`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `proteges`
@@ -83549,6 +83577,13 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `ceklis_anak`
+--
+ALTER TABLE `ceklis_anak`
+  ADD CONSTRAINT `ceklis_anak_ibfk_1` FOREIGN KEY (`id_penilaian`) REFERENCES `kompetensi_dasar` (`id`),
+  ADD CONSTRAINT `ceklis_anak_ibfk_2` FOREIGN KEY (`id_murid`) REFERENCES `student` (`id`);
 
 --
 -- Constraints for table `districts`
